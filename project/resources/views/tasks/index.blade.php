@@ -7,46 +7,31 @@
   @include('flash::message')
   <div class="mb-5"></div>
   <h1 class="mb-4">Задачи</h1>
-  <div class="d-flex">
-    <div>
-      <form method="GET" action="{{ route('tasks.index') }}" accept-charset="UTF-8">
-        <div class="g-3 d-flex justify-content-between">
-          <div class="col-3 px-1">
-            <select class="form-select" name="filter[status_id]">
-              <option value="">Статус</option>
-              @foreach ($taskStatuses as $taskStatus)
-              <option value="{{ $taskStatus->id }}">{{ $taskStatus->name }}</option>
-              @endforeach
-            </select>
-          </div>
-          <div class="col-7 px-1">
-            <select class="form-select" name="filter[created_by_id]">
-              <option selected="selected" value="">Автор</option>
-              @foreach ($users as $user)
-              <option value="{{ $user->id }}">{{ $user->name }}</option>
-              @endforeach
-            </select>
-          </div>
-          <div class="col-7 px-1">
-            <select class="form-select" name="filter[assigned_to_id]">
-              <option selected="selected" value="">Исполнитель</option>
-              @foreach ($users as $user)
-              <option value="{{ $user->id }}">{{ $user->name }}</option>
-              @endforeach
-            </select>
-          </div>
-          <div class="col-2 px-1">
-            <input class="btn btn-outline-primary me-2" type="submit" value="Применить">
-          </div>
-
-        </div>
-      </form>
-    </div>
+  <div class="d-flex flex-wrap align-items-start gap-2 mb-3">
+    <form method="GET" action="{{ route('tasks.index') }}" accept-charset="UTF-8" class="d-flex flex-wrap align-items-start gap-2">
+      <select class="form-select" name="filter[status_id]" style="width: 220px; max-width: 100%;">
+        <option value="">Статус</option>
+        @foreach ($taskStatuses as $taskStatus)
+        <option value="{{ $taskStatus->id }}">{{ $taskStatus->name }}</option>
+        @endforeach
+      </select>
+      <select class="form-select" name="filter[created_by_id]" style="width: 220px; max-width: 100%;">
+        <option selected="selected" value="">Автор</option>
+        @foreach ($users as $user)
+        <option value="{{ $user->id }}">{{ $user->name }}</option>
+        @endforeach
+      </select>
+      <select class="form-select" name="filter[assigned_to_id]" style="width: 220px; max-width: 100%;">
+        <option selected="selected" value="">Исполнитель</option>
+        @foreach ($users as $user)
+        <option value="{{ $user->id }}">{{ $user->name }}</option>
+        @endforeach
+      </select>
+      <input class="btn btn-outline-primary" type="submit" value="Применить">
+    </form>
     @auth
-    <div class="ms-auto">
-      <a href="{{ route('tasks.create') }}" class="btn btn-primary ml-auto">
+      <a href="{{ route('tasks.create') }}" class="btn btn-primary">
         Создать задачу </a>
-    </div>
     @endauth
   </div>
   <table class="table mt-2">
